@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from "react";
+import { Text, View } from "react-native";
+import ConfirmationModal from "./ConfirmationModal";
+import styles from "./styles";
 
 export default function App() {
-  return (
+  // State to control the modal visibility
+  const [modalVisible, setModalVisible] = useState(false);
+
+  function toggleModal() {
+    setModalVisible(!modalVisible);
+  }
+
+  return(
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <ConfirmationModal
+        animationType="fade"
+        visible={modalVisible}
+        onPressConfirm={toggleModal}
+        onPressCancel={toggleModal}
+
+      />
+      <Text style={styles.text} onPress={toggleModal}>
+        Show Modal
+      </Text>
     </View>
-  );
+  )
+  
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
